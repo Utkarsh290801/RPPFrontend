@@ -12,7 +12,7 @@ const SignInForm = () => {
   const url = app_config.backend_url;
   const { setloggedIn } = useContext(AppContext);
   const navigate = useNavigate();
- 
+  const [loading, setLoading] = useState(false);
   const loginform = {
     email: "",
     password: "",
@@ -26,7 +26,7 @@ const SignInForm = () => {
 
   const loginSubmit = async (formdata, { setSubmitting }) => {
     setSubmitting(true);
-
+    setLoading(true);
     // Check if email exists
     const res = await fetch(url + "/user/checkemail/" + formdata.email);
     if (res.status === 200) {
@@ -97,6 +97,7 @@ const SignInForm = () => {
       });
     }
     setSubmitting(false);
+    setLoading(false);
   };
 
   // ...
@@ -159,7 +160,7 @@ const SignInForm = () => {
               Forgot your password?
               <NavLink to="/reset"> Reset now</NavLink>
             </p>
-            <input className="iBtn" type="submit" value="sign In" />
+            <input className="iBtn" type="submit" value="sign In" disabled={loading}/>
             {/* <SocialMedia /> */}
           </form>
         )}

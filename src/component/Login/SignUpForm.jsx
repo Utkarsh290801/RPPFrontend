@@ -17,7 +17,7 @@ const SignUpForm = ({ onSignUpSuccess }) => {
   };
   const userSubmit = async (formdata) => {
     console.log(formdata);
-    const response = await fetch(url+"/user/add", {
+    const response = await fetch(url + "/user/add", {
       method: "POST",
       body: JSON.stringify(formdata),
       headers: {
@@ -29,7 +29,7 @@ const SignUpForm = ({ onSignUpSuccess }) => {
       const data = await response.json();
       // console.log("data saved");
       console.log("success");
-      const response2 = await fetch(url+"/apply/add", {
+      const response2 = await fetch(url + "/apply/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -68,14 +68,8 @@ const SignUpForm = ({ onSignUpSuccess }) => {
         // console.log(obj);
         // if(obj.path!=='email') return;
         const response = await fetch(
-          url+"/user/checkemail/" + value
-          // {
-          //   method: "POST",
-          //   body: JSON.stringify({ email: value }),
-          //   headers: {
-          //     "Content-Type": "application/json",
-          //   },
-          // }
+          url + "/user/checkemail/" + value
+       
         );
         if (response.status === 200) {
           // console.log("email found");
