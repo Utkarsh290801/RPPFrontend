@@ -29,7 +29,7 @@ const Services = ({ filter }) => {
   const renderServices = filter ? filteredServices : services;
 
   return (
-    <section id="services" className="services">
+    <section id="services" className="services mt-4">
       <div className="container">
         <h4 className="miniTitle text-center">Our Internships</h4>
         <div className="text-center">

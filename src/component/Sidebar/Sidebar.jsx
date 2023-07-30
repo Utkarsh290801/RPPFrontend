@@ -3,7 +3,13 @@ import { NavLink } from "react-router-dom";
 import "./Sidebar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faCirclePlay,
+  faCreditCard,
+  faEnvelope,
   faFile,
+  faFileInvoice,
+  faFloppyDisk,
+  faGraduationCap,
   faHome,
   faList,
   faUserCircle,
@@ -60,8 +66,8 @@ const Sidebar = ({ setTitle }) => {
               exact
               to="/user/service"
             >
-              <FontAwesomeIcon icon={faFile} className="iconC" />
-              Internship Domain
+           <FontAwesomeIcon icon={faGraduationCap} className="iconC"/>
+               Internship Domain
             </NavLink>
           </li>
           <li>
@@ -82,7 +88,7 @@ const Sidebar = ({ setTitle }) => {
               activeclassname="activePage"
               to="/dashboard/taskallocated"
             >
-              <FontAwesomeIcon icon={faList} className="iconC" />
+            <FontAwesomeIcon icon={faFileInvoice}  className="iconC"/>
               Allocated Task
             </NavLink>
           </li>
@@ -92,8 +98,8 @@ const Sidebar = ({ setTitle }) => {
               activeclassname="activePage"
               to="/dashboard/video"
             >
-              <FontAwesomeIcon icon={faList} className="iconC" />
-             References Videos 
+               <FontAwesomeIcon icon={faCirclePlay} className="iconC" />
+              References Videos
             </NavLink>
           </li>
           <li>
@@ -102,7 +108,8 @@ const Sidebar = ({ setTitle }) => {
               activeclassname="activePage"
               to="/dashboard/submission"
             >
-              <FontAwesomeIcon icon={faList} className="iconC" />
+                 <FontAwesomeIcon icon={faFloppyDisk} className="iconC"/>
+           
               Task Submission
             </NavLink>
           </li>
@@ -112,7 +119,7 @@ const Sidebar = ({ setTitle }) => {
               activeclassname="activePage"
               to="/dashboard/payment"
             >
-              <FontAwesomeIcon icon={faList} className="iconC" />
+             <FontAwesomeIcon icon={faCreditCard} className="iconC" />
               Payment Form
             </NavLink>
           </li>
@@ -122,7 +129,7 @@ const Sidebar = ({ setTitle }) => {
               activeclassname="activePage"
               to="/dashboard/certificate"
             >
-              <FontAwesomeIcon icon={faList} className="iconC" />
+              <FontAwesomeIcon icon={faEnvelope} className="iconC" />
               Internship Certificate
             </NavLink>
           </li>
