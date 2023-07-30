@@ -1,0 +1,79 @@
+ .contact-container {
+  height: 100vh;
+}
+
+.text-center-custom {
+  text-align: center;
+}
+
+.margin-bottom {
+  margin-bottom: 1.5rem;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #c4d2ee;
+}
+
+.custom-table th,
+.custom-table td {
+  padding: 0.75rem;
+}
+
+.custom-table th {
+  font-weight: bold;
+  text-align: left;
+}
+
+.custom-table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.custom-table-bordered th,
+.custom-table-bordered td {
+  border: 1px solid #dee2e6;
+}
+
+.custom-table-bordered thead th,
+.custom-table-bordered thead td {
+  border-bottom-width: 2px;
+}
+
+.custom-btn-danger {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.custom-btn-danger:hover {
+  color: #fff;
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+.custom-spinner {
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+  vertical-align: text-bottom;
+  border: 0.2em solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  -webkit-animation: custom-spinner 0.75s linear infinite;
+  animation: custom-spinner 0.75s linear infinite;
+}
+.custom-email-link {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.custom-email-link:hover {
+  text-decoration: underline;
+}
+
+@keyframes custom-spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
