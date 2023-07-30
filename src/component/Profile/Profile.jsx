@@ -24,6 +24,7 @@ const Profile = () => {
   };
 
   useEffect(() => {
+    
     const fetchAppliedStatus = async () => {
       if (currentUser) {
         try {

@@ -9,13 +9,14 @@ import app_config from "../../config";
 const SignUpForm = ({ onSignUpSuccess }) => {
   const url = app_config.backend_url;
   const navigate = useNavigate();
-
+  const [loading, setLoading] = useState(false);
   const signup = {
     username: "",
     email: "",
     password: "",
   };
   const userSubmit = async (formdata) => {
+    setLoading(true);
     console.log(formdata);
     const response = await fetch(url + "/user/add", {
       method: "POST",
@@ -54,6 +55,7 @@ const SignUpForm = ({ onSignUpSuccess }) => {
         text: "!! something went wrong!!",
       });
     }
+    setLoading(false);
   };
   const formSchema = Yup.object().shape({
     username: Yup.string()
@@ -158,7 +160,7 @@ const SignUpForm = ({ onSignUpSuccess }) => {
             <p className="text-warning">
               {errors.password && touched.password && errors.password}
             </p>
-            <input className="iBtn" type="submit" value="sign Up" />
+            <input className="iBtn" type="submit" value="sign Up" disabled={loading}/>
             {/* <p className="social-text">Or Sign up with social account</p>
             <SocialMedia /> */}
           </form>

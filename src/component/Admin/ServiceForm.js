@@ -15,11 +15,15 @@ const ServiceForm = ({
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("admin"))
   );
+  // New state variable to store the logo file
+  const [logoFile, setLogoFile] = useState(null);
+
   const AddInternship = {
     domain: updateFormData ? updateFormData.domain : "",
     location: updateFormData ? updateFormData.location : "",
     duration: updateFormData ? updateFormData.duration : "",
     position: updateFormData ? updateFormData.position : "",
+    logo: updateFormData ? updateFormData.logo : "",
     uploadedBy: currentUser.username,
   };
 
@@ -29,12 +33,32 @@ const ServiceForm = ({
     position: Yup.string().required("Required"),
     location: Yup.string().required("Required"),
   });
+  const handleLogoChange = (event) => {
+    const file = event.target.files[0];
+    setLogoFile(file);
+    console.log(file);
+  };
 
   const updateSubmit = async (formdata) => {
     console.log(formdata);
+    if (logoFile) {
+      const fd = new FormData();
+      fd.append("myfile", logoFile);
+
+      // Upload logo file to directory
+      const response = await fetch(url + "/util/uploadfile", {
+        method: "POST",
+        body: fd,
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        formdata.logo = data.fileName; // Set the filename in the formdata
+      }
+    }
 
     const response = await fetch(
-      url+`/service/update/${updateFormData._id}`,
+      url + `/service/update/${updateFormData._id}`,
       {
         method: "PUT",
         body: JSON.stringify(formdata),
@@ -61,8 +85,23 @@ const ServiceForm = ({
 
   const addSubmit = async (formdata) => {
     console.log(formdata);
+    if (logoFile) {
+      const fd = new FormData();
+      fd.append("myfile", logoFile);
 
-    const response = await fetch(url+"/service/add", {
+      // Upload logo file to directory
+      const ress = await fetch(url + "/util/uploadfile", {
+        method: "POST",
+        body: fd,
+      });
+
+      if (ress.ok) {
+        const data = await ress.json();
+        formdata.logo = data.fileName; // Set the filename in the formdata
+      }
+    }
+
+    const response = await fetch(url + "/service/add", {
       method: "POST",
       body: JSON.stringify(formdata),
       headers: {
@@ -132,7 +171,17 @@ const ServiceForm = ({
                             helperText={touched.domain ? errors.domain : ""}
                             error={Boolean(errors.domain && touched.domain)}
                           />
-
+                          <div className="mb-4">
+                            <label htmlFor="logo" className="form-label">
+                              Upload Logo
+                            </label>
+                            <input
+                              type="file"
+                              id="logo"
+                              name="logo"
+                              onChange={handleLogoChange}
+                            />
+                          </div>
                           <TextField
                             label="Position"
                             id="position"

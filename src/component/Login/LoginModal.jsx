@@ -25,7 +25,7 @@ const Form = () => {
       </Link>
       <div className="forms-container">
         <div className="signIn-singUp">
-        {isSignUp ? (
+          {isSignUp ? (
             <SignUpForm onSignUpSuccess={handleSignUpSuccess} />
           ) : (
             <SignInForm />
@@ -36,10 +36,9 @@ const Form = () => {
       <div className="panels-container">
         <div className="panel left-panel">
           <div className="content">
-            <h3>New here ?</h3>
+            <h3>🔓 Unlock Potential - Sign In for Your Path! 🔑</h3>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi
-              beatae quas magnam!
+            Welcome to our empowering internship platform! 🔥 Sign in now for transformative opportunities that unleash your true potential. Join Right Path Predictor Pvt Ltd for a bright and successful future. 🚀
             </p>
             <button
               className="iBtn transparent"
@@ -53,10 +52,11 @@ const Form = () => {
 
         <div className="panel right-panel">
           <div className="content">
-            <h3>One of us ?</h3>
+            <h3>🚀 Join Our Life-Changing Internships! 🎓</h3>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi
-              beatae quas magnam!
+              Leap into Success at Right Path Predictor Pvt Ltd. 💼 Unparalleled
+              Growth. Valuable Mentorship. Real Challenges. 💪 Don't Wait. Seize
+              Endless Possibilities. Join Now! 🌟
             </p>
             <button
               className="iBtn transparent"

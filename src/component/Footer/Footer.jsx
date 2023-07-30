@@ -64,7 +64,7 @@ Also, our company is serving for various social sector problems.
         <FooterCol key="4" menuItems={otherLinks} title="OTHER LINKS" />
       </Row>
       <p className="copyRight">
-        Copyright &copy; 2023 <span className="fHighlight">Utkarsh Arora</span>.
+        Copyright &copy; 2023 <span className="fHighlight">RIGHT PATH PREDICTOR PVT.LTD</span>.
         All rights reserved.
       </p>
     </section>

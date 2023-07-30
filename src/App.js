@@ -32,6 +32,7 @@ import TaskCreation from "./component/Admin/TaskCreation";
 import TaskDetail from "./component/Admin/TaskDetail";
 import Training from "./component/Admin/Training";
 import VideoDetail from "./component/Admin/VideoDetail";
+import BuildTools from "./component/BuildTools/BuildTools";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(
@@ -86,6 +87,7 @@ function App() {
             />
             <Route path="user" element={<User />}>
               <Route path="service" element={<Services />} />
+              <Route path="faq" element={<BuildTools />} />
               <Route path="contact" element={<Contact />} />
               <Route path="about" element={<About />} />
               <Route
