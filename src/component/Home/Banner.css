@@ -65,7 +65,7 @@
   opacity: 0.9;
   margin-bottom: 30px;
 }
-.social-media {
+/* .social-media {
   display: flex;
   justify-content: center;
   gap: 29px;
@@ -77,6 +77,34 @@
   width: 140px;
   height: auto;
   object-fit: contain;
+} */
+.social-media {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  max-width: 100%;
+  overflow-x: auto;
+  /* Limit the width on mobile screens to prevent overflow */
+  /* You can adjust the breakpoint (e.g., 600px) based on your design needs */
+  @media (max-width: 600px) {
+    max-width: 100%;
+    overflow-x: hidden;
+    /* Change the flex direction to stack the images vertically on smaller screens */
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.social-media > img {
+  width: 140px;
+  height: auto;
+  object-fit: contain;
+  /* Make images responsive to fit well on smaller screens */
+  /* You can adjust the image size and other properties for different screen sizes */
+  @media (max-width: 600px) {
+    width: 100%; /* Images will take up the full width of the container on smaller screens */
+    max-width: 140px; /* Limit the max-width to maintain image aspect ratio */
+  }
 }
 
 
