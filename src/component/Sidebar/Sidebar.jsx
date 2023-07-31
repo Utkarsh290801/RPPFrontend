@@ -11,6 +11,7 @@ import {
   faFloppyDisk,
   faGraduationCap,
   faHome,
+  faIdBadge,
   faList,
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
@@ -145,7 +146,7 @@ const Sidebar = ({ setTitle }) => {
               activeclassname="activePage"
               to="/user/contact"
             >
-              <FontAwesomeIcon icon={faList} className="iconC" />
+             <FontAwesomeIcon icon={faIdBadge} className="iconC"/>
               Contact Us
             </NavLink>
           </li>

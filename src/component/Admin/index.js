@@ -20,7 +20,7 @@ const Admin = () => {
     },
     {
       name: "View Domain",
-      icon: <ManageAccountsIcon />,
+      icon:<QueryStatsIcon />,
       link: "/admin/viewdomain",
     },
     {
@@ -30,7 +30,7 @@ const Admin = () => {
     },
     {
       name: "Applied List",
-      icon: <ManageAccountsIcon />,
+      icon: <QueryStatsIcon />,
       link: "/admin/appliedlist",
     },
     {
@@ -40,7 +40,7 @@ const Admin = () => {
     },
     {
       name: "Offer Letter Detail",
-      icon: <ManageAccountsIcon />,
+      icon: <QueryStatsIcon />,
       link: "/admin/offerletterdetail",
     },
     {
@@ -50,7 +50,7 @@ const Admin = () => {
     },
     {
       name: "Task Detail",
-      icon: <ManageAccountsIcon />,
+      icon: <QueryStatsIcon />,
       link: "/admin/taskdetail",
     },
     {
@@ -60,22 +60,22 @@ const Admin = () => {
     },
     {
       name: "Video Detail",
-      icon: <DashboardIcon />,
+      icon: <QueryStatsIcon />,
       link: "/admin/trainingdetail",
     },
     {
       name: "Submission Details",
-      icon: <DashboardIcon />,
+      icon: <ManageAccountsIcon />,
       link: "/admin/submissiondetail",
     },
     {
       name: "Payment Details",
-      icon: <DashboardIcon />,
+      icon: <QueryStatsIcon />,
       link: "/admin/paymentdetail",
     },
     {
       name: "Upload Certificate",
-      icon: <QueryStatsIcon />,
+      icon: <DashboardIcon />,
       link: "/admin/uploadcertificate",
     },
     {
@@ -85,12 +85,12 @@ const Admin = () => {
     },
     {
       name: "Contact Detail",
-      icon: <QueryStatsIcon />,
+      icon: <ManageAccountsIcon />,
       link: "/admin/contactdetail",
     },
     {
       name: "File Management",
-      icon: <QueryStatsIcon />,
+      icon: <DashboardIcon />,
       link: "/admin/filemanagement",
     },
   ];

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Formik } from "formik";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import * as Yup from "yup";
 import app_config from "../../config";
 const AddShow = () => {
   const [userArray, setUserArray] = useState([]);
@@ -67,6 +68,12 @@ const AddShow = () => {
       });
     }
   };
+  const formSchema = Yup.object().shape({
+    // domain: Yup.string().required("Required"), // Uncomment this if you want to add validation to domain
+    title: Yup.string().required("Required"),
+    description: Yup.string().required("Required"),
+    link: Yup.string().required("Required"),
+  });
   return (
     <div className="container">
       <div className="card">
@@ -89,9 +96,10 @@ const AddShow = () => {
                   description: "",
                   link: "",
                 }}
+                validationSchema={formSchema}
                 onSubmit={addSubmit}
               >
-                {({ values, handleChange, handleSubmit }) => (
+                {({ values, handleChange, handleSubmit, errors, touched }) => (
                   <form onSubmit={handleSubmit} className="w-100">
                     {/* <TextField
                       label="Domain"
@@ -123,6 +131,10 @@ const AddShow = () => {
                         </MenuItem>
                       ))}
                     </Select>
+                     {/* Add the error messages */}
+                     {touched.title && errors.title && (
+                      <div style={{ color: "red" }}>{errors.title}</div>
+                    )}
                     <TextField
                       label="Title"
                       variant="outlined"
@@ -133,6 +145,9 @@ const AddShow = () => {
                       value={values.title}
                       onChange={handleChange}
                     />
+                     {touched.description && errors.description && (
+                      <div style={{ color: "red" }}>{errors.description}</div>
+                    )}
                     <TextField
                       label="Description"
                       variant="outlined"
@@ -143,6 +158,9 @@ const AddShow = () => {
                       value={values.description}
                       onChange={handleChange}
                     />
+                     {touched.description && errors.description && (
+                      <div style={{ color: "red" }}>{errors.description}</div>
+                    )}
                     <TextField
                       label="Video URL"
                       variant="outlined"
