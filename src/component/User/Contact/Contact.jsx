@@ -14,16 +14,54 @@ const Contact = () => {
     subject: "",
     message: "",
   };
+  // const contactSubmit = async (formdata, { setSubmitting, resetForm }) => {
+  //   console.log(formdata);
+  //   setSubmitting(true);
+
+  //   // asynchronous function returns promise
+  //   const response = await fetch(url+"/contact/add", {
+  //     method: "POST",
+  //     body: JSON.stringify(formdata),
+  //     headers: { "Content-Type": "application/json" },
+  //   });
+  //   if (response.status === 200) {
+  //     console.log(response.status);
+  //     console.log("data saved");
+  //     Swal.fire({
+  //       icon: "success",
+  //       title: "Success",
+  //       text: "send successfully!!",
+  //     });
+  //     resetForm({ values: "" });
+  //   } else if (response.status === 500) {
+  //     console.log(response.status);
+  //     console.log("something went wrong");
+  //     Swal.error({
+  //       icon: "error",
+  //       title: "OOPS",
+  //       text: "!! something went wrong!!",
+  //     });
+  //   }
+  //   setSubmitting(false);
+  // };
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   event.target.reset();
+
+  // };
+  const recipientEmail = "support@rightpathpredictor.in"; // Replace with the admin's email
+
   const contactSubmit = async (formdata, { setSubmitting, resetForm }) => {
     console.log(formdata);
     setSubmitting(true);
 
-    // asynchronous function returns promise
-    const response = await fetch(url+"/contact/add", {
+    // Asynchronous function returns promise
+    const response = await fetch(url + "/contact/add", {
       method: "POST",
       body: JSON.stringify(formdata),
       headers: { "Content-Type": "application/json" },
     });
+
     if (response.status === 200) {
       console.log(response.status);
       console.log("data saved");
@@ -33,6 +71,52 @@ const Contact = () => {
         text: "send successfully!!",
       });
       resetForm({ values: "" });
+
+      // Send the response email to the user
+      fetch(url + "/util/sendmail", {
+        method: "POST",
+        body: JSON.stringify({
+          to: formdata.email, // Use the user's email from the contact form
+          subject: "Response to your query",
+          text: "Thank you for reaching out to us. We have received your query and will get back to you shortly.",
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => {
+          console.log(res.status);
+          if (res.status === 200) {
+            console.log("Response sent successfully to the user");
+          }
+          return res.json();
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+
+      // Send the details to the admin's email
+      fetch(url + "/util/sendmail", {
+        method: "POST",
+        body: JSON.stringify({
+          to: recipientEmail, // Use the admin's email
+          subject: "New Contact Form Submission",
+          text: `New contact form submission details:\nName: ${formdata.name}\nEmail: ${formdata.email}\nSubject: ${formdata.subject}\nMessage: ${formdata.message}`,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => {
+          console.log(res.status);
+          if (res.status === 200) {
+            console.log("Details sent successfully to the admin");
+          }
+          return res.json();
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
     } else if (response.status === 500) {
       console.log(response.status);
       console.log("something went wrong");
@@ -44,11 +128,6 @@ const Contact = () => {
     }
     setSubmitting(false);
   };
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   event.target.reset();
-
-  // };
   const contactSchema = Yup.object().shape({
     name: Yup.string()
       .min(2, "Too Short!")

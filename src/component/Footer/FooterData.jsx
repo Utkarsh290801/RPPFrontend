@@ -9,17 +9,17 @@ export const usefulLink = [
 //   { name: "Blog", id: 5 },
 ];
 export const ourServices = [
-//   { name: "Strategy & Research", id: 6 },
-//   { name: "Web Design", id: 7 },
   { name: "Web Development", id: 8 },
   { name: "Digital Marketing", id: 9 },
   { name: "App Development", id: 10 },
+  { name: "Search Engine Optimization", id: 7 },
+    { name: "Programming Language", id: 6 },
 ];
 export const otherLinks = [
   { name: "FAQ", id: 11,link:"/user/faq" },
 //   { name: "RPP", id: 13 },
   { name: "Admin Login", id: 12, link: "/admin/addservice" },
-//   { name: "Terms & Conditions", id: 14 },
+  { name: "Testimonial", id: 14,link:"https://rightpathpredictor.in/internships" },
   { name: "Support", id: 15 ,link:"/user/contact"},
 ];
 

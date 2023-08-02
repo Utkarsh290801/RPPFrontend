@@ -37,9 +37,9 @@ const Footer = () => {
               <img src={ind} alt="ind" />
             </div> */}
           </p>
-          <ul className="socialIcons">
+          {/* <ul className="socialIcons">
             <li>
-              <Link to="https://www.facebook.com/profile.php?id=100088203945476">
+              <Link to="https://www.facebook.com/profile.php?id=100088203945476" >
                 <FontAwesomeIcon icon={faFacebook} />
               </Link>
             </li>
@@ -58,6 +58,44 @@ const Footer = () => {
                 <FontAwesomeIcon icon={faLinkedinIn} />
               </Link>
             </li>
+          </ul> */}
+          <ul className="socialIcons">
+            <li>
+              <a
+                href="https://www.facebook.com/profile.php?id=100088203945476"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FontAwesomeIcon icon={faFacebook} />
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://twitter.com/R_P_PREDICTORS"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FontAwesomeIcon icon={faTwitter} />
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.instagram.com/rightpathpredictor"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FontAwesomeIcon icon={faInstagram} />
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.linkedin.com/company/right-path-predictor-pvt-ltd"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FontAwesomeIcon icon={faLinkedinIn} />
+              </a>
+            </li>
           </ul>
         </Col>
         <FooterCol key="2" menuItems={usefulLink} title="USEFUL LINK" />
@@ -66,8 +104,17 @@ const Footer = () => {
       </Row>
       <p className="copyRight">
         Copyright &copy; 2023{" "}
-        <span className="fHighlight">RIGHT PATH PREDICTOR PVT.LTD</span>. All
-        rights reserved.
+        <span className="fHighlight">
+          <a
+            href="https://rightpathpredictor.in/"
+            target="_blank"
+            rel="noopener noreferrer"
+           style={{color:"white"}}
+          >
+            RIGHT PATH PREDICTOR PVT.LTD
+          </a>
+        </span>
+        . All rights reserved.
       </p>
     </section>
   );

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "../../context/AppContext";
 import PopOver from "../PopOver/PopOver";
-
+import rpplogo from "../../Assets/images/Rpplogo.jpg"
 const Navbar = ({ setFilter }) => {
   const { loggedIn, setloggedIn } = useContext(AppContext);
   const [adminData, setAdminData] = useState(null);
@@ -29,9 +29,9 @@ const Navbar = ({ setFilter }) => {
         <div className="container-fluid">
           <a className="navbar-brand me-2" href="/">
             <img
-              src="https://rightpathpredictor.in/sisotcha/2023/04/RPP-300x292.jpg"
+              src={rpplogo}
               height="56"
-              alt="MDB Logo"
+              alt="RppLogo"
               loading="lazy"
               style={{ marginTop: "-1px" }}
             />

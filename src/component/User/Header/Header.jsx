@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AppContext } from "../../../context/AppContext";
-
+import rpplogo from "../../../Assets/images/Rpplogo.jpg"
 const Header = () => {
   const navigate = useNavigate();
   const { loggedIn, setloggedIn } = useContext(AppContext);
@@ -39,9 +39,9 @@ const Header = () => {
             {/* <!-- Navbar brand --> */}
             <a class="navbar-brand mt-2 mt-lg-0" href="#">
               <img
-                src="https://rightpathpredictor.in/sisotcha/2023/04/RPP-300x292.jpg"
+                src={rpplogo}
                 height="45"
-                alt="MDB Logo"
+                alt="RppLogo"
                 loading="lazy"
                 className="rounded-circle"
               />{" "}
