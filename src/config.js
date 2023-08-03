@@ -7,5 +7,4 @@
 const app_config = {
   backend_url: "https://enasainc.co",
 };
-
 export default app_config;

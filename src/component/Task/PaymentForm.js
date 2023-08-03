@@ -16,10 +16,34 @@ const PaymentForm = () => {
     JSON.parse(sessionStorage.getItem("user"))
   );
   const [paymentData, setPaymentData] = useState([]);
-
+  const [serviceData, setServiceData] = useState([]);
   const [appliedStatus, setAppliedStatus] = useState(null);
   const navigate = useNavigate();
+  const fetchServiceData = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(url + "/service/getall");
+      if (response.status === 200) {
+        const data = await response.json();
+        setServiceData(data);
+      } else {
+        throw new Error("Failed to fetch service data");
+      }
+    } catch (error) {
+      console.error(error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to fetch service data",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
+    fetchServiceData();
+  }, []);
   const fetchOfferData = async () => {
     setLoading(true);
     try {
@@ -233,7 +257,10 @@ const PaymentForm = () => {
                     <>
                       <h3 className="mt-4">{values.domain}</h3>
                       <img src={photo} alt="" className="img-fluid" />
-                      <h1>Fees : Rs.99</h1>
+                      <h1>
+                      Fees : Rs{" "}
+                      {serviceData.find((service) => service.domain === values.domain)?.price}
+                    </h1>
                     </>
                   )}
                 </div>

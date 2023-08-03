@@ -99,7 +99,7 @@ const Footer = () => {
           </ul>
         </Col>
         <FooterCol key="2" menuItems={usefulLink} title="USEFUL LINK" />
-        <FooterCol key="3" menuItems={ourServices} title="OUR SERVICES" />
+        <FooterCol key="3" menuItems={ourServices} title="INTERNSHIP DOMAINS" />
         <FooterCol key="4" menuItems={otherLinks} title="OTHER LINKS" />
       </Row>
       <p className="copyRight">

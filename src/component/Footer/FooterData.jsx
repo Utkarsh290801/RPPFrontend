@@ -4,7 +4,7 @@ import { faBuffer } from "@fortawesome/free-brands-svg-icons";
 export const usefulLink = [
   { name: "Home", id: 1, link: "#" },
   { name: "About us", id: 2, link: "/user/about" },
-  { name: "Services", id: 3 ,link:"/user/service"},
+  { name: "Services", id: 3 ,link:"https://rightpathpredictor.in/services"},
   { name: "Team", id: 4,link: "https://rightpathpredictor.in/about"  },
 //   { name: "Blog", id: 5 },
 ];
@@ -12,7 +12,7 @@ export const ourServices = [
   { name: "Web Development", id: 8 },
   { name: "Digital Marketing", id: 9 },
   { name: "App Development", id: 10 },
-  { name: "Search Engine Optimization", id: 7 },
+  { name: "WordPress Development", id: 7 },
     { name: "Programming Language", id: 6 },
 ];
 export const otherLinks = [

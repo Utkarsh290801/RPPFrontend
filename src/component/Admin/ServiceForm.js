@@ -23,6 +23,7 @@ const ServiceForm = ({
     location: updateFormData ? updateFormData.location : "",
     duration: updateFormData ? updateFormData.duration : "",
     position: updateFormData ? updateFormData.position : "",
+    price: updateFormData ? updateFormData.price : "",
     logo: updateFormData ? updateFormData.logo : "",
     uploadedBy: currentUser.username,
   };
@@ -32,6 +33,7 @@ const ServiceForm = ({
     duration: Yup.string().required("Required"),
     position: Yup.string().required("Required"),
     location: Yup.string().required("Required"),
+    price: Yup.string().required("Required"),
   });
   const handleLogoChange = (event) => {
     const file = event.target.files[0];
@@ -210,6 +212,15 @@ const ServiceForm = ({
                             className="w-100 mb-4"
                             helperText={touched.duration ? errors.duration : ""}
                             error={Boolean(errors.duration && touched.duration)}
+                          />
+                          <TextField
+                            label="Price"
+                            id="price"
+                            value={values.price}
+                            onChange={handleChange}
+                            className="w-100 mb-4"
+                            helperText={touched.price ? errors.price : ""}
+                            error={Boolean(errors.price && touched.price)}
                           />
 
                           <Button

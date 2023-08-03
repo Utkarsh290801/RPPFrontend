@@ -12,7 +12,7 @@ const ViewDomainList = () => {
   const getDataFromBackend = async () => {
     setLoading(true);
     try {
-      const response = await fetch(url+"/service/getall");
+      const response = await fetch(url + "/service/getall");
       if (response.status === 200) {
         const data = await response.json();
         console.log(data);
@@ -41,12 +41,9 @@ const ViewDomainList = () => {
   const deleteUser = async (id) => {
     console.log(id);
     try {
-      const response = await fetch(
-        url+`/service/delete/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const response = await fetch(url + `/service/delete/${id}`, {
+        method: "DELETE",
+      });
       if (response.status === 200) {
         Swal.fire({
           icon: "success",
@@ -87,27 +84,36 @@ const ViewDomainList = () => {
         </div>
       );
     } else {
-      return userArray.map(({ _id, domain, location, duration, position }) => (
-        <tr key={_id}>
-          <td>{domain}</td>
-          <td>
-            <button
-              className="btn btn-primary"
-              onClick={(e) =>
-                updateUser({ _id, domain, location, duration, position })
-              }
-            >
-              <i className="fas fa-edit"></i>
-            </button>
-            <button
-              className="btn btn-danger ms-2"
-              onClick={(e) => deleteUser(_id)}
-            >
-              <i className="fas fa-trash"></i>
-            </button>
-          </td>
-        </tr>
-      ));
+      return userArray.map(
+        ({ _id, domain, location, duration, position, price }) => (
+          <tr key={_id}>
+            <td>{domain}</td>
+            <td>
+              <button
+                className="btn btn-primary"
+                onClick={(e) =>
+                  updateUser({
+                    _id,
+                    domain,
+                    location,
+                    duration,
+                    position,
+                    price,
+                  })
+                }
+              >
+                <i className="fas fa-edit"></i>
+              </button>
+              <button
+                className="btn btn-danger ms-2"
+                onClick={(e) => deleteUser(_id)}
+              >
+                <i className="fas fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        )
+      );
     }
   };
 

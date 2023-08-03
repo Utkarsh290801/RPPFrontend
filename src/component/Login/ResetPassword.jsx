@@ -249,7 +249,11 @@ const ResetPassword = () => {
     <>
       <ThemeProvider theme={theme}>
         {" "}
-        <div className="footer reset-container ">
+        <div
+          className="footer  d-flex align-items-center justify-content-center "
+          align="center"
+          style={{ height: "100vh" }}
+        >
           <div className="reset-header">
             <Link to="/">
               <span className="pageCloseBtn">
