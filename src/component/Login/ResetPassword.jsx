@@ -17,20 +17,10 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import * as Yup from "yup";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+// import { SMTPClient } from 'emailjs';
 import app_config from "../../config";
 const ResetPassword = () => {
   const [passVisible, setPassVisible] = useState(false);
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: "#007bff", // Your primary color
-      },
-      secondary: {
-        main: "#dc3545", // Your secondary color
-      },
-    },
-  });
 
   const [email, setEmail] = useState("");
   const url = app_config.backend_url;
@@ -54,7 +44,7 @@ const ResetPassword = () => {
 
   const sendOTP = () => {
     const tempOtp = generateOTP();
-    fetch(url + "/util/sendmail", {
+    fetch(url+"/util/sendmail", {
       method: "POST",
       body: JSON.stringify({
         to: email,
@@ -80,7 +70,7 @@ const ResetPassword = () => {
   };
 
   const verifyUser = () => {
-    fetch(url + "/user/getbyemail/" + email)
+    fetch(url+"/user/getbyemail/" + email)
       .then((res) => {
         return res.json();
       })
@@ -96,10 +86,12 @@ const ResetPassword = () => {
           setCurrentUser(data);
           setShowReset(true);
           sendOTP();
+          // console.log(generateOTP());
         }
       });
   };
 
+  // const verifyOTP = (formdata) => {
   const verifyOTP = (formdata) => {
     if (otp.toString() === formdata.otp.toString()) {
       console.log("otp matched");
@@ -114,8 +106,34 @@ const ResetPassword = () => {
     }
   };
 
+  //   const sendEmail =()=>{
+
+  //   const client = new SMTPClient({
+  //     user: 'user',
+  //     password: 'password',
+  //     host: 'smtp.your-email.com',
+  //     ssl: true,
+  //   });
+
+  //   const message = {
+  //     text: 'i hope this works',
+  //     from: 'you <username@your-email.com>',
+  //     to: 'someone <someone@your-email.com>, another <another@your-email.com>',
+  //     cc: 'else <else@your-email.com>',
+  //     subject: 'testing emailjs',
+  //     attachment: [
+  //       { data: '<html>i <i>hope</i> this works!</html>', alternative: true },
+  //       { path: 'path/to/file.zip', type: 'application/zip', name: 'renamed.zip' },
+  //     ],
+  //   };
+
+  //   // send the message and get a callback with an error or details of the message that was sent
+  //   client.send(message, function (err, message) {
+  //     console.log(err || message);
+  //   });
+  // }
   const resetPassword = ({ password }) => {
-    fetch(url + "/user/update/" + currentUser._id, {
+    fetch(url+"/user/update/" + currentUser._id, {
       method: "PUT",
       body: JSON.stringify({ password: password }),
       headers: { "Content-Type": "application/json" },
@@ -150,7 +168,7 @@ const ResetPassword = () => {
   const showResetForm = () => {
     if (showReset) {
       return (
-        <Card className="reset-form" align="center">
+        <Card className=""  align="center">
           <CardContent align="center">
             <Formik
               initialValues={passwordForm}
@@ -178,7 +196,7 @@ const ResetPassword = () => {
                     type={passVisible ? "text" : "password"}
                     value={values.password}
                     error={Boolean(errors.password)}
-                    helperText="Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+                    helperText="Enter your Password please"
                     onChange={handleChange}
                     InputProps={{
                       endAdornment: (
@@ -247,56 +265,41 @@ const ResetPassword = () => {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
-        {" "}
-        <div
-          className="footer  d-flex align-items-center justify-content-center "
-          align="center"
-          style={{ height: "100vh" }}
-        >
-          <div className="reset-header">
-            <Link to="/">
-              <span className="pageCloseBtn">
-                <FontAwesomeIcon icon={faTimes} />
-              </span>
-            </Link>
-          </div>
-          <Grid container spacing={2} justifyContent="center">
-            <Grid item xs={12} md={6}>
-              <Card
-                className="email-card"
-                sx={{ width: "100%", maxWidth: 451 }}
-              >
-                <CardContent align="center">
-                  <TextField
-                    className="w-100 mt-3"
-                    placeholder="Enter Your Email"
-                    label="Email"
-                    variant="outlined"
-                    id="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
+      <Grid className="footer" container justifyContent="center" alignItems="center" style={{ height: "100vh" }}>
+      <Grid item xs={12} sm={8} md={6} lg={4}>
+        <Link to="/">
+          <span className="pageCloseBtn">
+            <FontAwesomeIcon icon={faTimes} />
+          </span>
+        </Link>
+        <Card sx={{ width: "100%", maxWidth: 451 }} align="center">
+          <CardContent align="center">
+            <TextField
+              className="w-100 mt-3"
+              placeholder="Enter Your Email"
+              label="Email"
+              variant="outlined"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
-                  <Button
-                    color="success"
-                    variant="contained"
-                    className="mt-5"
-                    type="submit"
-                    fullWidth
-                    onClick={verifyUser}
-                  >
-                    Submit
-                  </Button>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              {showResetForm()}
-            </Grid>
-          </Grid>
-        </div>
-      </ThemeProvider>
+            <Button
+              color="success"
+              variant="contained"
+              className="mt-5"
+              type="submit"
+              fullWidth
+              onClick={verifyUser}
+            >
+              Submit
+            </Button>
+          </CardContent>
+        </Card>
+
+        {showResetForm()}
+      </Grid>
+    </Grid>
     </>
   );
 };
