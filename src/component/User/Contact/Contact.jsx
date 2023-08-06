@@ -77,8 +77,21 @@ const Contact = () => {
         method: "POST",
         body: JSON.stringify({
           to: formdata.email, // Use the user's email from the contact form
-          subject: "Response to your query",
-          text: "Thank you for reaching out to us. We have received your query and will get back to you shortly.",
+          subject: "Query Received - We'll Get Back to You",
+          text: `Dear ${formdata.name},
+          Thank you for reaching out to us. We have received your query and would like to assure you that our team is already reviewing it. We understand the importance of your inquiry and will do our best to provide you with a timely and accurate response.
+
+We appreciate your patience as we work to address your query. If you have any additional information to share or if there are updates related to your query, please feel free to reply to this email.
+
+In the meantime, if you have any urgent concerns or need immediate assistance, please don't hesitate to contact our support team directly.
+
+Once again, thank you for choosing our services. We look forward to providing you with the assistance you need.
+
+Best regards,
+
+Right Path Predictor Pvt Ltd
+Email: rightpathpredictor@gmail.com
+Website: https://rightpathpredictor.in`,
         }),
         headers: {
           "Content-Type": "application/json",

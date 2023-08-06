@@ -116,6 +116,61 @@ const UploadLetter = () => {
 
           if (addResponse.status === 200) {
             console.log("Success");
+            const emailResponse = await fetch(url + "/util/sendmail", {
+              method: "POST",
+              body: JSON.stringify({
+                to: appliedBy,
+                subject: "Internship Offer Letter Available on Right Path Predictor Pvt Ltd Internship Portal",
+                text: `Dear ${appliedName},
+                
+                We are excited to share the news with you! Your internship offer letter is now accessible on the Right Path Predictor Pvt Ltd Internship Portal. Kindly log in to review and acknowledge the offer at your earliest convenience. Congratulations on your selection! We are thrilled to have you join our team.
+                
+                Here are some important points to keep in mind during your internship tenure:
+                
+                1. Update your LinkedIn profile and showcase your achievements, including the Offer Letter and Internship Completion Certificate you received from us. Don't forget to tag @rightpathpredictor.in and use hashtags #rpp #rightpathpredictor #startup #internship #rppinternship .
+                
+                2. Plagiarism is strictly prohibited. Please ensure that your projects and code are original. Any violation of this policy may result in termination of your internship and future opportunities with us.
+                
+                3. Share a video of your completed tasks on LinkedIn, tagging Right Path Predictor Pvt Ltd @rightpathpredictor.in , and using the hashtag #rpp #rightpathpredictor #startup #internship #rppinternship . A brief explanation of the task is mandatory.
+                
+                4. If you're participating in a Tech Internship, maintain a separate GitHub repository named "RPP" for all your tasks. Share the repository link in the task submission form, which will be given in internship portal.
+                
+                5. Complete all tasks and requirements within the specified timeline to ensure a successful internship.
+
+                6. Remember to submit your tasks on time to maximize your learning and contribute to the success of the internship program.
+                
+                Congratulations once again on your selection. Your dedication and enthusiasm are truly appreciated.
+                
+                Stay connected with us:
+                
+                LinkedIn: https://www.linkedin.com/company/right-path-predictor-pvt-ltd
+                Telegram: https://t.me/rightpathpredictor
+                Instagram: https://www.instagram.com/rightpathpredictor/
+                Facebook: https://www.facebook.com/profile.php?id=100088203945476
+                Twitter: https://twitter.com/R_P_PREDICTORS
+                
+                For any queries or assistance, please feel free to contact us:
+                
+                Email: rightpathpredictor@gmail.com
+                Website: https://rightpathpredictor.in
+                
+                Wishing you a rewarding and enriching internship journey!
+                
+                Best Regards,
+                Team Right Path Predictor
+                
+               `,
+              }),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            });
+
+            if (emailResponse.status === 200) {
+              console.log("Email sent successfully");
+            } else {
+              console.log("Failed to send email");
+            }
             Swal.fire({
               icon: "success",
               title: "Success",

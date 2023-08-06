@@ -9,7 +9,7 @@ const UploadCertificate = () => {
   const fetchPaymentData = async () => {
     setLoading(true);
     try {
-      const response = await fetch(url+"/payment/getall");
+      const response = await fetch(url + "/payment/getall");
       if (response.status === 200) {
         const data = await response.json();
         setPaymentData(data);
@@ -32,7 +32,7 @@ const UploadCertificate = () => {
   const fetchCertificateData = async () => {
     setLoading(true);
     try {
-      const response = await fetch(url+"/certificate/getall");
+      const response = await fetch(url + "/certificate/getall");
       if (response.status === 200) {
         const data = await response.json();
         setCertificateData(data);
@@ -86,7 +86,7 @@ const UploadCertificate = () => {
       formData.append("myfile", file);
 
       try {
-        const response = await fetch(url+"/util/uploadfile", {
+        const response = await fetch(url + "/util/uploadfile", {
           method: "POST",
           body: formData,
         });
@@ -102,19 +102,57 @@ const UploadCertificate = () => {
             certificate: data.fileName,
           };
 
-          const addResponse = await fetch(
-            url+"/certificate/add",
-            {
+          const addResponse = await fetch(url + "/certificate/add", {
+            method: "POST",
+            body: JSON.stringify(formdata),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+
+          if (addResponse.status === 200) {
+            const emailResponse = await fetch(url + "/util/sendmail", {
               method: "POST",
-              body: JSON.stringify(formdata),
+              body: JSON.stringify({
+                to: email,
+                subject: "Internship Certificate Issuance",
+                text: `Dear ${name},
+
+                We are delighted to inform you that your internship certificate is now accessible on the Right Path Predictor Internship Portal dashboard. Congratulations on successfully completing your internship!
+                
+                Login to the portal www.learnwith.rightpathpredictor.in to download your certificate. Your hard work and dedication throughout the internship have paid off.
+                
+                **Ways to share your achievement:**
+                
+                1. **Add to Your LinkedIn Profile:** Include your Student Internship Program Certificate directly on your LinkedIn profile.
+                2. **Print and Share:** Download the PDF to print and share a physical copy.
+                3. **Share on Social Media:** Post on social media platforms or your LinkedIn Feed and tag Right Path Predictor.
+                   Tag: @rightpathpredictor.in
+                
+                Don't forget to use hashtags: #rpp #rightpathpredictor #startup #internship #rppinternship when sharing your Completion Certificate.
+                
+                Once again, congratulations on your remarkable achievement! 🎉
+                
+                Thank you for your interest in the Internship Program. We wish you all the best for your future endeavors. If you have any questions or queries, please feel free to contact us:
+                
+                Email: rightpathpredictor@gmail.com
+                Website: https://rightpathpredictor.in/
+                
+                Keep up the great work!
+                
+                Best regards,
+                Right Path Predictor Pvt Ltd`,
+              }),
               headers: {
                 "Content-Type": "application/json",
               },
-            }
-          );
+            });
 
-          if (addResponse.status === 200) {
-            console.log("Success");
+            if (emailResponse.status === 200) {
+              console.log("Email sent successfully");
+            } else {
+              console.log("Failed to send email");
+            }
             Swal.fire({
               icon: "success",
               title: "Success",

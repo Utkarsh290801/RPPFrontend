@@ -36,7 +36,7 @@ const AddShow = () => {
   useEffect(() => {
     getDataFromBackend();
   }, []);
-  const addSubmit = async (formdata) => {
+  const addSubmit = async (formdata, { resetForm }) => {
     console.log(formdata);
 
     const response = await fetch(url + "/video/add", {
@@ -56,7 +56,8 @@ const AddShow = () => {
         text: "Video Added Successfully!! 👍👍",
       });
       response.json().then((data) => {
-        // navigate("/trainingdetail");
+        resetForm(); // Reset the form fields
+        navigate("/admin/trainingdetail");
       });
     } else {
       console.log(response.status);
@@ -120,9 +121,10 @@ const AddShow = () => {
                       placeholder="Enter Domain"
                       name="domain"
                       value={selectedDomain}
-                      onChange={(event) =>
-                        setSelectedDomain(event.target.value)
-                      }
+                      onChange={(event) => {
+                        setSelectedDomain(event.target.value);
+                        handleChange(event); // This updates the 'domain' field in formdata
+                      }}
                     >
                       {/* Populate options from the userArray */}
                       {userArray.map((user) => (
@@ -131,8 +133,8 @@ const AddShow = () => {
                         </MenuItem>
                       ))}
                     </Select>
-                     {/* Add the error messages */}
-                     {touched.title && errors.title && (
+                    {/* Add the error messages */}
+                    {touched.title && errors.title && (
                       <div style={{ color: "red" }}>{errors.title}</div>
                     )}
                     <TextField
@@ -145,7 +147,7 @@ const AddShow = () => {
                       value={values.title}
                       onChange={handleChange}
                     />
-                     {touched.description && errors.description && (
+                    {touched.description && errors.description && (
                       <div style={{ color: "red" }}>{errors.description}</div>
                     )}
                     <TextField
@@ -158,7 +160,7 @@ const AddShow = () => {
                       value={values.description}
                       onChange={handleChange}
                     />
-                     {touched.description && errors.description && (
+                    {touched.description && errors.description && (
                       <div style={{ color: "red" }}>{errors.description}</div>
                     )}
                     <TextField

@@ -15,47 +15,142 @@ const SignUpForm = ({ onSignUpSuccess }) => {
     email: "",
     password: "",
   };
+  // const userSubmit = async (formdata) => {
+  //   setLoading(true);
+  //   console.log(formdata);
+  //   const response = await fetch(url + "/user/add", {
+  //     method: "POST",
+  //     body: JSON.stringify(formdata),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+  //   if (response.status === 200) {
+  //     console.log(response.status);
+  //     const data = await response.json();
+  //     // console.log("data saved");
+  //     console.log("success");
+  //     const response2 = await fetch(url + "/apply/add", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ user: data._id }),
+  //     });
+  //     if (response2.status === 200) {console.log("Apply created");
+  //     Swal.fire({
+  //       icon: "success",
+  //       title: "Well Done",
+  //       text: "You have sucessfully registered !! 👍👍",
+  //     });
+  //     if (typeof onSignUpSuccess === "function") {
+  //       onSignUpSuccess(); // Call the callback function on successful signup
+  //     }}
+  //   } else {
+  //     console.log(response.status);
+  //     console.log("something went wrong");
+  //     Swal.error({
+  //       icon: "error",
+  //       title: "OOPS",
+  //       text: "!! something went wrong!!",
+  //     });
+  //   }
+  //   setLoading(false);
+  // };
   const userSubmit = async (formdata) => {
     setLoading(true);
-    console.log(formdata);
-    const response = await fetch(url + "/user/add", {
-      method: "POST",
-      body: JSON.stringify(formdata),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.status === 200) {
-      console.log(response.status);
-      const data = await response.json();
-      // console.log("data saved");
-      console.log("success");
-      const response2 = await fetch(url + "/apply/add", {
+    try {
+      const response = await fetch(url + "/user/add", {
         method: "POST",
+        body: JSON.stringify(formdata),
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ user: data._id }),
       });
-      if (response2.status === 200) console.log("Apply created");
-      Swal.fire({
-        icon: "success",
-        title: "Well Done",
-        text: "You have sucessfully registered !! 👍👍",
-      });
-      if (typeof onSignUpSuccess === "function") {
-        onSignUpSuccess(); // Call the callback function on successful signup
+
+      if (response.status === 200) {
+        const data = await response.json();
+        const response2 = await fetch(url + "/apply/add", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ user: data._id }),
+        });
+
+        if (response2.status === 200) {
+          // Send email to the registered user
+          sendEmail(formdata.email, formdata.username);
+
+          // Display success message
+          Swal.fire({
+            icon: "success",
+            title: "Well Done",
+            text: "You have successfully registered!",
+          });
+          if (typeof onSignUpSuccess === "function") {
+            onSignUpSuccess(); // Call the callback function on successful signup
+          }
+          // Clear form and navigate or perform other actions
+          // ...
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "OOPS",
+            text: "Something went wrong while creating application.",
+          });
+        }
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "OOPS",
+          text: "Something went wrong while registering user.",
+        });
       }
-    } else {
-      console.log(response.status);
-      console.log("something went wrong");
-      Swal.error({
-        icon: "error",
-        title: "OOPS",
-        text: "!! something went wrong!!",
-      });
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
+  };
+
+  const sendEmail = async (toEmail, name) => {
+    try {
+      const response = await fetch(url + "/util/sendmail", {
+        method: "POST",
+        body: JSON.stringify({
+          to: toEmail,
+          subject: "Welcome to Right Path Predictor",
+          text: `Dear ${name} , \n
+  Congratulations! Your account has been successfully created on our internship platform at Right Path Predictor Pvt Ltd. We are thrilled to have you onboard and look forward to supporting you on your journey to acquiring valuable skills and experiences.
+  \n 
+  Now that your account is active, the next step is to select the domains that interest you and apply for the internships that align with your career aspirations. Our platform offers a wide range of exciting opportunities across various fields, ensuring there's something for everyone.
+  \n
+  Stay Updated: Keep an eye on your email and the portal for further updates and notifications. We will inform you about the status of your applications and any additional steps if required.
+  \n
+  We are excited about the possibilities that lie ahead for you and are here to support you every step of the way.
+  \n
+  Should you have any questions or need assistance during the application process, don't hesitate to reach out to us at rightpathpredictor@gmail.com, internship@rightpathpredictor.in
+  \n
+  Thank you for choosing Right Path Predictor Pvt Ltd for your internship journey. We believe that this experience will be enriching and rewarding, providing you with a solid foundation for your future career.
+  \n
+  Happy exploring and best of luck.
+  \n
+  Best regards,\n
+  Skills Developing Network\n
+  Right Path Predictor Pvt Ltd`,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.status === 200) {
+        console.log("Email sent successfully to the user");
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
+    }
   };
   const formSchema = Yup.object().shape({
     username: Yup.string()
@@ -69,10 +164,7 @@ const SignUpForm = ({ onSignUpSuccess }) => {
       .test("email", "Email already exists", async (value, obj) => {
         // console.log(obj);
         // if(obj.path!=='email') return;
-        const response = await fetch(
-          url + "/user/checkemail/" + value
-       
-        );
+        const response = await fetch(url + "/user/checkemail/" + value);
         if (response.status === 200) {
           // console.log("email found");
           return false;
@@ -160,7 +252,12 @@ const SignUpForm = ({ onSignUpSuccess }) => {
             <p className="text-warning">
               {errors.password && touched.password && errors.password}
             </p>
-            <input className="iBtn" type="submit" value="sign Up" disabled={loading}/>
+            <input
+              className="iBtn"
+              type="submit"
+              value="sign Up"
+              disabled={loading}
+            />
             {/* <p className="social-text">Or Sign up with social account</p>
             <SocialMedia /> */}
           </form>
