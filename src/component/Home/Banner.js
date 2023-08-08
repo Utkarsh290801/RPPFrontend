@@ -39,7 +39,10 @@ const Banner = () => {
               <a href="#services">Browse Interenships</a>
             </div>
           </div>
-
+          <div className="text-center">
+          <h4 className="sectionTitle miniTitle text-center">Our Recognition</h4>
+         
+          </div>
           <div className="social-media" data-testid="images">
             <img src={upstart} alt="upstart" className="upstart" />
             <img src={msme} alt="msme" />

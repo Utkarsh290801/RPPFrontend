@@ -70,21 +70,28 @@ const PaymentForm = () => {
   useEffect(() => {
     fetchOfferData();
   }, []);
+ 
   const handleScreenshotChange = (e, handleChange) => {
     const file = e.target.files[0];
-    setScreenshot(file.name); // Set the file name instead of the file object
     const fd = new FormData();
     fd.append("myfile", file);
+  
     fetch(url + "/util/uploadfile", {
       method: "POST",
       body: fd,
-    }).then((res) => {
-      if (res.status === 200) {
-        console.log("file uploaded");
-      }
-    });
+    })
+      .then((res) => res.json()) // Parse the response as JSON
+      .then((data) => {
+        if (data.fileName) {
+          setScreenshot(data.fileName); // Set the generated filename
+          console.log("file uploaded");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
-
+  
   const AddForm = {
     email: currentUser.email,
     domain: "",

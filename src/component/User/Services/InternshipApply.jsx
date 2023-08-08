@@ -59,13 +59,14 @@ const InternshipApply = () => {
       });
   }, []);
 
-  const addSubmit = (values, { setSubmitting }) => {
+  const addSubmit = async (values, { setSubmitting }) => {
     setIsLoading(true);
     const updatedValues = {
       ...values,
       resume: resumeUrl,
       domain: [...values.domain], // Add the selected domain to the array
     };
+
     if (values.domain.includes(modelData.domain)) {
       Swal.fire({
         icon: "warning",
@@ -75,30 +76,69 @@ const InternshipApply = () => {
       navigate("/dashboard/profile");
       return;
     }
+
     updatedValues.domain.push(modelData.domain); // Add the selected domain to the array
-    fetch(url + "/apply/update/" + applyData._id, {
-      method: "PUT",
-      body: JSON.stringify(updatedValues),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        if (res.status === 200) {
-          res.json().then((data) => {
-            console.log(data);
-          });
+
+    try {
+      const updateResponse = await fetch(
+        url + "/apply/update/" + applyData._id,
+        {
+          method: "PUT",
+          body: JSON.stringify(updatedValues),
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-        Swal.fire({
-          icon: "success",
-          title: "Well done!",
-          text: "You have successfully applied for this internship.",
+      );
+
+      if (updateResponse.status === 200) {
+        updateResponse.json().then((data) => {
+          console.log(data);
         });
-        navigate("/dashboard/profile");
-      })
-      .catch((error) => {
-        console.error("Error updating details:", error);
+      }
+      Swal.fire({
+        icon: "success",
+        title: "Well done!",
+        text: "You have successfully applied for this internship.",
       });
+      const emailResponse = await fetch(url + "/util/sendmail", {
+        method: "POST",
+        body: JSON.stringify({
+          to: updatedValues.appliedBy,
+          subject:
+            "Congratulations on Applying for the Domain Internship! | Right Path Predictor Pvt Ltd ",
+          text: `Dear ${updatedValues.appliedName},\n
+            We're excited to inform you that your application for the ${modelData.domain} internship has been successfully received. Your interest and enthusiasm are appreciated, and we're looking forward to the possibility of having you on board.
+            We'll be reviewing applications over the coming days and will be in touch with further updates. In the meantime, feel free to reach out if you have any questions.
+            Thank you for considering this opportunity and taking the time to apply.\n
+Stay connected with us:
+LinkedIn: https://www.linkedin.com/company/right-path-predictor-pvt-ltd
+Telegram: https://t.me/rightpathpredictor
+Instagram: https://www.instagram.com/rightpathpredictor/
+Facebook: https://www.facebook.com/profile.php?id=100088203945476
+Twitter: https://twitter.com/R_P_PREDICTORS\n
+For any queries or assistance, please feel free to contact us:\n
+Email: rightpathpredictor@gmail.com
+Website: https://rightpathpredictor.in\n
+Wishing you a rewarding and enriching internship journey!\n
+   Best Regards,
+   Team Right Path Predictor`,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (emailResponse.status === 200) {
+        console.log("Email sent successfully");
+      } else {
+        console.log("Failed to send email");
+      }
+
+      navigate("/dashboard/profile");
+    } catch (error) {
+      console.error("Error updating details:", error);
+    }
   };
 
   const getModelById = () => {
@@ -123,7 +163,7 @@ const InternshipApply = () => {
     const file = e.target.files[0];
     const fd = new FormData();
     fd.append("myfile", file);
-    fetch(url+"/util/uploadfile", {
+    fetch(url + "/util/uploadfile", {
       method: "POST",
       body: fd,
     })
@@ -376,9 +416,10 @@ const InternshipApply = () => {
                       {resumeUrl || applyData?.resume ? (
                         <div className="mt-4" style={{ float: "left" }}>
                           <a
-                            href={url+`/util/files/${
-                              resumeUrl || applyData?.resume
-                            }`}
+                            href={
+                              url +
+                              `/util/files/${resumeUrl || applyData?.resume}`
+                            }
                             target="_blank"
                             rel="noopener noreferrer"
                           >
@@ -387,7 +428,9 @@ const InternshipApply = () => {
                         </div>
                       ) : null}
                       <div class="button_container">
-                        <button className="apply-button" type="submit">Apply Now</button>
+                        <button className="apply-button" type="submit">
+                          Apply Now
+                        </button>
                       </div>
                     </form>
                   )}

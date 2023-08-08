@@ -90,7 +90,7 @@ const PaymentDetails = () => {
               </h3>
               <span>
                 <a
-                  href={url+`/${payment.screenshot}`}
+                  href={url+`/util/files/${payment.screenshot}`}
                   target="_blank"
                   download
                   rel="noopener noreferrer"
