@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.c46dc416.css",
+    "main.js": "/static/js/main.cbc10de2.js",
+    "static/js/787.8675c87a.chunk.js": "/static/js/787.8675c87a.chunk.js",
+    "static/media/cool-background.png": "/static/media/cool-background.8c252db8e4acab4196d4.png",
+    "static/media/msme.png": "/static/media/msme.5f58db1e1bb97be86de9.png",
+    "static/media/about.svg": "/static/media/about.5342ef52c84012b42475ee6a8f6b8f46.svg",
+    "static/media/Payment.jpg": "/static/media/Payment.c302a4a58b9e875e515e.jpg",
+    "static/media/log.svg": "/static/media/log.4715ac4b40e0642cbd47c6259dec9057.svg",
+    "static/media/register.svg": "/static/media/register.c806b0814bdd52a1b23cf67f5052f5ff.svg",
+    "static/media/upstart.png": "/static/media/upstart.cb72a79b031f162cd6c6.png",
+    "static/media/404.svg": "/static/media/404.4861ae776b44868dd600a76fba88073d.svg",
+    "static/media/footerbg.png": "/static/media/footerbg.23fa6ea06b7128a9ac55.png",
+    "static/media/Rpplogo.jpg": "/static/media/Rpplogo.c88ea36c62e87ccd8c30.jpg",
+    "static/media/contact.svg": "/static/media/contact.ea9004588faa2be7ecb8d8f71e70869e.svg",
+    "index.html": "/index.html",
+    "main.c46dc416.css.map": "/static/css/main.c46dc416.css.map",
+    "main.cbc10de2.js.map": "/static/js/main.cbc10de2.js.map",
+    "787.8675c87a.chunk.js.map": "/static/js/787.8675c87a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c46dc416.css",
+    "static/js/main.cbc10de2.js"
+  ]
+}
