@@ -90,14 +90,17 @@ const AppliedList = () => {
         </div>
       );
     } else {
-      const filteredArray = userArray.filter(({ domain, appliedBy }) => {
+      const filteredArray = userArray.filter(({ domain, appliedBy,appliedName }) => {
         const lowerCaseQuery = searchQuery.toLowerCase();
         return (
           (domain &&
             domain.some((item) =>
               item?.toLowerCase().includes(lowerCaseQuery)
             )) ||
-          (appliedBy && appliedBy.toLowerCase().includes(lowerCaseQuery))
+          (appliedBy && appliedBy.toLowerCase().includes(lowerCaseQuery)) ||
+          (appliedName && appliedName.toLowerCase().includes(lowerCaseQuery)) 
+         
+
         );
       });
 

@@ -15,7 +15,7 @@ const Certificate = () => {
   const fetchOfferData = async () => {
     setLoading(true);
     try {
-      const response = await fetch(url+"/offer/getall");
+      const response = await fetch(url + "/offer/getall");
       if (response.status === 200) {
         const data = await response.json();
         setOfferData(data);
@@ -42,9 +42,7 @@ const Certificate = () => {
   const fetchAppliedStatus = async () => {
     if (currentUser) {
       try {
-        const res = await fetch(
-          url+`/apply/checkuser/${currentUser._id}`
-        );
+        const res = await fetch(url + `/apply/checkuser/${currentUser._id}`);
         const planData = await res.json();
         if (planData) {
           setAppliedStatus(planData.domain);
@@ -69,7 +67,7 @@ const Certificate = () => {
   const fetchPaymentData = async () => {
     setLoading(true);
     try {
-      const response = await fetch(url+"/payment/getall");
+      const response = await fetch(url + "/payment/getall");
       if (response.status === 200) {
         const data = await response.json();
         setPaymentData(data);
@@ -95,7 +93,7 @@ const Certificate = () => {
   const fetchCertificateData = async () => {
     setLoading(true);
     try {
-      const response = await fetch(url+"/certificate/getall");
+      const response = await fetch(url + "/certificate/getall");
       if (response.status === 200) {
         const data = await response.json();
         setCertificateData(data);
@@ -119,7 +117,7 @@ const Certificate = () => {
   }, []);
   const handleDownload = (e, fileName) => {
     e.preventDefault();
-    fetch(url+`/util/files/${fileName}`)
+    fetch(url + `/util/files/${fileName}`)
       .then((response) => response.blob())
       .then((blob) => {
         // Create a temporary URL object to generate the download link
@@ -184,9 +182,9 @@ const Certificate = () => {
             <div className="col-md text-center mt-5">
               <h3 className="headerTitle">
                 Certificate is{" "}
-                <span className="headerHighlight">not issued </span>nyet.
+                <span className="headerHighlight">not issued </span>yet.
               </h3>
-            </div>
+            </div>  
           );
         } else {
           // Render the certificate details and download button
@@ -246,7 +244,9 @@ const Certificate = () => {
                     </div>
                     <button
                       className="custom-button"
-                      onClick={(e) => handleDownload(e, certificate.certificate)}
+                      onClick={(e) =>
+                        handleDownload(e, certificate.certificate)
+                      }
                     >
                       Download
                     </button>
